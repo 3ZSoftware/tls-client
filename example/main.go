@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"compress/gzip"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -20,14 +21,15 @@ import (
 )
 
 func main() {
-	sslPinning()
-	requestToppsAsChrome107Client()
-	postAsTlsClient()
-	requestWithFollowRedirectSwitch()
-	requestWithCustomClient()
-	rotateProxiesOnClient()
-	downloadImageWithTlsClient()
-	testPskExtension()
+	//sslPinning()
+	requestPeetWsAsChromeClient()
+	//requestToppsAsChrome107Client()
+	//postAsTlsClient()
+	//requestWithFollowRedirectSwitch()
+	//requestWithCustomClient()
+	//rotateProxiesOnClient()
+	//downloadImageWithTlsClient()
+	//testPskExtension()
 }
 
 type TlsApiResponse struct {
@@ -88,6 +90,99 @@ type TlsApiResponse struct {
 	} `json:"http1"`
 }
 
+func requestPeetWsAsChromeClient() (string, error) {
+	options := []tls_client.HttpClientOption{
+		tls_client.WithTimeoutSeconds(30),
+		tls_client.WithClientProfile(profiles.Chrome_122),
+	}
+
+	client, err := tls_client.NewHttpClient(tls_client.NewNoopLogger(), options...)
+	if err != nil {
+		log.Println(err)
+		return "", nil
+	}
+
+	req, err := http.NewRequest(http.MethodGet, "https://tls.peet.ws/api/all", nil)
+	if err != nil {
+		log.Println(err)
+		return "", nil
+	}
+
+	req.Header = http.Header{
+		"cache-control":             {"max-age=0"},
+		"sec-ch-ua":                 {`"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"`},
+		"sec-ch-ua-mobile":          {"?0"},
+		"sec-ch-ua-platform":        {`"Windows"`},
+		"dnt":                       {"1"},
+		"upgrade-insecure-requests": {"1"},
+		"user-agent":                {"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"},
+		"accept":                    {"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"},
+		"sec-fetch-site":            {"same-origin"},
+		"sec-fetch-mode":            {"navigate"},
+		"sec-fetch-user":            {"?1"},
+		"sec-fetch-dest":            {"document"},
+		"referer":                   {"https://tls.peet.ws/"},
+		"accept-encoding":           {"gzip, deflate, br, zstd"},
+		"accept-language":           {"en-US,en;q=0.9,fr;q=0.8"},
+		http.HeaderOrderKey: {
+			"cache-control",
+			"sec-ch-ua",
+			"sec-ch-ua-mobile",
+			"sec-ch-ua-platform",
+			"dnt",
+			"upgrade-insecure-requests",
+			"user-agent",
+			"accept",
+			"sec-fetch-site",
+			"sec-fetch-mode",
+			"sec-fetch-user",
+			"sec-fetch-dest",
+			"referer",
+			"accept-encoding",
+			"accept-language",
+		},
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Println(err)
+		return "", nil
+	}
+
+	if err != nil {
+		log.Println(err)
+		return "", nil
+	}
+
+	var reader io.ReadCloser
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Println(err)
+		return "", nil
+	}
+
+	resp.Body.Close()
+
+	if len(bodyBytes) >= 2 && bodyBytes[0] == 0x1f && bodyBytes[1] == 0x8b {
+		reader, err = gzip.NewReader(bytes.NewReader(bodyBytes))
+		if err != nil {
+			log.Println(err)
+			return "", nil
+		}
+		defer reader.Close()
+		bodyBytes, err = io.ReadAll(reader)
+		if err != nil {
+			log.Println(err)
+			return "", nil
+		}
+	}
+
+	bodyString := string(bodyBytes)
+
+	log.Printf("GET %s : %s\n", "https://tls.peet.ws/api/all", bodyString)
+	return "", nil
+}
+
 func sslPinning() {
 	jar := tls_client.NewCookieJar()
 
@@ -104,7 +199,7 @@ func sslPinning() {
 
 	options := []tls_client.HttpClientOption{
 		tls_client.WithTimeoutSeconds(60),
-		tls_client.WithClientProfile(profiles.Chrome_108),
+		tls_client.WithClientProfile(profiles.Chrome_122),
 		tls_client.WithRandomTLSExtensionOrder(),
 		tls_client.WithCookieJar(jar),
 		tls_client.WithCertificatePinning(pins, tls_client.DefaultBadPinHandler),

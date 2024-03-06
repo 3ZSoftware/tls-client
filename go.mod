@@ -31,4 +31,4 @@ replace github.com/bogdanfinn/utls => github.com/3zSoftware/utls v1.6.2-0.202403
 
 replace github.com/bogdanfinn/fhttp => github.com/3zSoftware/fhttp v0.5.28-0.20240304185945-8e5bd095a886
 
-replace github.com/bogdanfinn/tls-client => github.com/3zSoftware/tls-client v1.7.2
+replace github.com/bogdanfinn/tls-client => ./
