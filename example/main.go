@@ -93,7 +93,7 @@ type TlsApiResponse struct {
 func requestPeetWsAsChromeClient() (string, error) {
 	options := []tls_client.HttpClientOption{
 		tls_client.WithTimeoutSeconds(30),
-		tls_client.WithClientProfile(profiles.Chrome_122),
+		tls_client.WithClientProfile(profiles.Chrome_123),
 	}
 
 	client, err := tls_client.NewHttpClient(tls_client.NewNoopLogger(), options...)
@@ -110,12 +110,12 @@ func requestPeetWsAsChromeClient() (string, error) {
 
 	req.Header = http.Header{
 		"cache-control":             {"max-age=0"},
-		"sec-ch-ua":                 {`"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"`},
+		"sec-ch-ua":                 {`"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"`},
 		"sec-ch-ua-mobile":          {"?0"},
 		"sec-ch-ua-platform":        {`"Windows"`},
 		"dnt":                       {"1"},
 		"upgrade-insecure-requests": {"1"},
-		"user-agent":                {"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"},
+		"user-agent":                {"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"},
 		"accept":                    {"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"},
 		"sec-fetch-site":            {"same-origin"},
 		"sec-fetch-mode":            {"navigate"},
@@ -144,6 +144,7 @@ func requestPeetWsAsChromeClient() (string, error) {
 	}
 
 	resp, err := client.Do(req)
+	resp, err = client.Do(req)
 	if err != nil {
 		log.Println(err)
 		return "", nil
@@ -199,7 +200,7 @@ func sslPinning() {
 
 	options := []tls_client.HttpClientOption{
 		tls_client.WithTimeoutSeconds(60),
-		tls_client.WithClientProfile(profiles.Chrome_122),
+		tls_client.WithClientProfile(profiles.Chrome_123),
 		tls_client.WithRandomTLSExtensionOrder(),
 		tls_client.WithCookieJar(jar),
 		tls_client.WithCertificatePinning(pins, tls_client.DefaultBadPinHandler),

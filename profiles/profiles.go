@@ -23,6 +23,7 @@ var MappedTLSClients = map[string]ClientProfile{
 	"chrome_117":             Chrome_117,
 	"chrome_120":             Chrome_120,
 	"chrome_122":             Chrome_122,
+	"chrome_123":             Chrome_123,
 	"safari_15_6_1":          Safari_15_6_1,
 	"safari_16_0":            Safari_16_0,
 	"safari_ipad_15_6":       Safari_Ipad_15_6,
