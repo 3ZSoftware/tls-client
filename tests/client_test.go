@@ -14,6 +14,8 @@ import (
 )
 
 func TestClients(t *testing.T) {
+	t.Log("testing chrome 124")
+	chrome_124(t)
 	t.Log("testing chrome 120")
 	chrome_120(t)
 	time.Sleep(2 * time.Second)
@@ -72,6 +74,8 @@ func TestClients(t *testing.T) {
 	time.Sleep(2 * time.Second)
 	t.Log("testing opera 91")
 	opera_91(t)
+	t.Log("testing safari ios 17")
+	safariIos17(t)
 }
 
 func TestCustomClients(t *testing.T) {
@@ -509,6 +513,31 @@ func firefox_108(t *testing.T) {
 	compareResponse(t, "firefox", clientFingerprints[firefox][tls.HelloFirefox_108.Str()], resp)
 }
 
+func chrome_124(t *testing.T) {
+	options := []tls_client.HttpClientOption{
+		tls_client.WithClientProfile(profiles.Chrome_124),
+	}
+
+	client, err := tls_client.NewHttpClient(nil, options...)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	req, err := http.NewRequest(http.MethodGet, peetApiEndpoint, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	req.Header = defaultHeader
+
+	resp, err := client.Do(req)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	compareResponse(t, "chrome", clientFingerprints[chrome][profiles.Chrome_124.GetClientHelloStr()], resp)
+}
+
 func chrome_120(t *testing.T) {
 	options := []tls_client.HttpClientOption{
 		tls_client.WithClientProfile(profiles.Chrome_120),
@@ -632,6 +661,31 @@ func opera_91(t *testing.T) {
 	}
 
 	compareResponse(t, "opera", clientFingerprints[opera][tls.HelloOpera_91.Str()], resp)
+}
+
+func safariIos17(t *testing.T) {
+	options := []tls_client.HttpClientOption{
+		tls_client.WithClientProfile(profiles.Safari_IOS_17_0),
+	}
+
+	client, err := tls_client.NewHttpClient(nil, options...)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	req, err := http.NewRequest(http.MethodGet, peetApiEndpoint, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	req.Header = defaultHeader
+
+	resp, err := client.Do(req)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	compareResponse(t, "safari_IOS", clientFingerprints[safariIos][profiles.Safari_IOS_17_0.GetClientHelloStr()], resp)
 }
 
 func compareResponse(t *testing.T, clientName string, expectedValues map[string]string, resp *http.Response) {

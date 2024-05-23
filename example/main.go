@@ -200,7 +200,7 @@ func sslPinning() {
 
 	options := []tls_client.HttpClientOption{
 		tls_client.WithTimeoutSeconds(60),
-		tls_client.WithClientProfile(profiles.Chrome_123),
+		tls_client.WithClientProfile(profiles.Chrome_107),
 		tls_client.WithRandomTLSExtensionOrder(),
 		tls_client.WithCookieJar(jar),
 		tls_client.WithCertificatePinning(pins, tls_client.DefaultBadPinHandler),
@@ -519,7 +519,7 @@ func rotateProxiesOnClient() {
 	options := []tls_client.HttpClientOption{
 		tls_client.WithTimeoutSeconds(30),
 		tls_client.WithClientProfile(profiles.Chrome_107),
-		tls_client.WithProxyUrl("http://user:pass@host:port"),
+		tls_client.WithProxyUrl("http://user:pass@host:port"), // you can also use socks5://user:pass@host:port or socks5h://user:pass@host:port
 	}
 
 	client, err := tls_client.NewHttpClient(tls_client.NewNoopLogger(), options...)

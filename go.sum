@@ -1,7 +1,5 @@
 github.com/3zSoftware/fhttp v0.5.28-0.20240304185945-8e5bd095a886 h1:O4LrriXzCehYbcj9ffE1RMfJHTo8XwDvzV6Whk0U0GY=
 github.com/3zSoftware/fhttp v0.5.28-0.20240304185945-8e5bd095a886/go.mod h1:LaG6al7Hv0SV7DRXe7KnWtbER7gD2W3pUJ0WQSVJG+s=
-github.com/3zSoftware/tls-client v1.7.2 h1:CmdBLpD/4zWPnjMkTDOAcWENiQzGCg8qFkEBAU7fJxg=
-github.com/3zSoftware/tls-client v1.7.2/go.mod h1:pOGa2euqTbEkGNqE5idx5jKKfs9ytlyn3fwEw8RSP+g=
 github.com/3zSoftware/utls v1.6.2-0.20240304190453-336a5b43596e h1:Uv6styWwL4OXv0vgC575mKy8rmbeb1qlBMXu5EjvkQY=
 github.com/3zSoftware/utls v1.6.2-0.20240304190453-336a5b43596e/go.mod h1:KQHkvMi5FQtOErplfnL41tYk5Yezu4H4OdxVkztmSAQ=
 github.com/andybalholm/brotli v1.0.5 h1:8uQZIdzKmjc/iuPu7O2ioW48L81FgatrcpfFmiq/cCs=
@@ -21,10 +19,12 @@ github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+
 github.com/klauspost/compress v1.16.7 h1:2mk3MPGNzKyxErAw8YaohYh69+pa4sIQSC0fPGCFR9I=
 github.com/klauspost/compress v1.16.7/go.mod h1:ntbaceVETuRiXiv4DpjP66DpAtAGkEQskQzEyD//IeE=
 github.com/kr/pretty v0.3.1 h1:flRD4NNwYAUpkphVc1HcthR4KEIFJ65n8Mw5qdRn3LE=
+github.com/kr/pretty v0.3.1/go.mod h1:hoEshYVHaxMs3cyo3Yncou5ZscifuDolrwPKZanG3xk=
 github.com/kr/text v0.2.0 h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=
 github.com/kr/text v0.2.0/go.mod h1:eLer722TekiGuMkidMxC/pM04lWEeraHUUmBw8l2grE=
 github.com/onsi/ginkgo/v2 v2.9.5 h1:+6Hr4uxzP4XIUyAkg61dWBw8lb/gc4/X5luuxN/EC+Q=
 github.com/onsi/gomega v1.27.6 h1:ENqfyGeS5AX/rlXDd/ETokDz93u0YufY1Pgxuy/PvWE=
+github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e/go.mod h1:pJLUxLENpZxwdsKMEsNbx1VGcRFpLqf3715MtcvvzbA=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/quic-go/quic-go v0.37.4 h1:ke8B73yMCWGq9MfrCCAw0Uzdm7GaViC3i39dsIdDlH4=
