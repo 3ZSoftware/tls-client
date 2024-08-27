@@ -58,11 +58,13 @@ type RequestInput struct {
 	HeaderOrder                 []string            `json:"headerOrder"`
 	Headers                     map[string]string   `json:"headers"`
 	DefaultHeaders              map[string][]string `json:"defaultHeaders"`
+	ConnectHeaders              map[string][]string `json:"connectHeaders"`
 	InsecureSkipVerify          bool                `json:"insecureSkipVerify"`
 	IsByteRequest               bool                `json:"isByteRequest"`
 	IsByteResponse              bool                `json:"isByteResponse"`
 	IsRotatingProxy             bool                `json:"isRotatingProxy"`
 	DisableIPV6                 bool                `json:"disableIPV6"`
+	DisableIPV4                 bool                `json:"disableIPV4"`
 	LocalAddress                *string             `json:"localAddress"`
 	ServerNameOverwrite         *string             `json:"serverNameOverwrite"`
 	ProxyUrl                    *string             `json:"proxyUrl"`
@@ -70,6 +72,7 @@ type RequestInput struct {
 	RequestCookies              []Cookie            `json:"requestCookies"`
 	RequestMethod               string              `json:"requestMethod"`
 	RequestUrl                  string              `json:"requestUrl"`
+	RequestHostOverride         *string             `json:"requestHostOverride"`
 	SessionId                   *string             `json:"sessionId"`
 	StreamOutputBlockSize       *int                `json:"streamOutputBlockSize"`
 	StreamOutputEOFSymbol       *string             `json:"streamOutputEOFSymbol"`

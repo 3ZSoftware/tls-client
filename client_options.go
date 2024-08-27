@@ -44,6 +44,7 @@ type httpClientConfig struct {
 	insecureSkipVerify          bool
 	certificatePins             map[string][]string
 	defaultHeaders              http.Header
+	connectHeaders              http.Header
 	badPinHandler               BadPinHandlerFunc
 	proxyUrl                    string
 	serverNameOverwrite         string
@@ -57,6 +58,8 @@ type httpClientConfig struct {
 
 	// Establish a connection to origin server via ipv4 only
 	disableIPV6 bool
+	// Establish a connection to origin server via ipv6 only
+	disableIPV4 bool
 	dialer      net.Dialer
 
 	enabledBandwidthTracker bool
@@ -243,8 +246,23 @@ func WithDisableIPV6() HttpClientOption {
 	}
 }
 
+// WithDisableIPV4 configures a dialer to use tcp6 network argument
+func WithDisableIPV4() HttpClientOption {
+	return func(config *httpClientConfig) {
+		config.disableIPV4 = true
+	}
+}
+
+// WithBandwidthTracker configures a client to track the bandwidth used by the client.
 func WithBandwidthTracker() HttpClientOption {
 	return func(config *httpClientConfig) {
 		config.enabledBandwidthTracker = true
+	}
+}
+
+// WithConnectHeaders configures a client to use the specified headers for the CONNECT request.
+func WithConnectHeaders(headers http.Header) HttpClientOption {
+	return func(config *httpClientConfig) {
+		config.connectHeaders = headers
 	}
 }
