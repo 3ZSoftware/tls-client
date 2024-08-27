@@ -93,7 +93,7 @@ type TlsApiResponse struct {
 func requestPeetWsAsChromeClient() (string, error) {
 	options := []tls_client.HttpClientOption{
 		tls_client.WithTimeoutSeconds(30),
-		tls_client.WithClientProfile(profiles.Chrome_123),
+		tls_client.WithClientProfile(profiles.Chrome_124),
 	}
 
 	client, err := tls_client.NewHttpClient(tls_client.NewNoopLogger(), options...)
